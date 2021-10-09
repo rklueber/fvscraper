@@ -1,14 +1,26 @@
 version: '3'
 
 services:
-  scraper:
-    build: .
-    container_name: scraper
+  flask:
+    build: 
+      dockerfile: flask/Dockerfile
+    container_name: flask
     ports:
       - "5000:5000"
     networks:
       - scrapy_mysql_net
-    command: ["wait-for-it", "mysql:3306", "--timeout=240","--","scrapy", "crawl", "quotes"]
+    command: ["python", "app.py"]
+
+  scraper:
+    build: 
+      dockerfile: scraper/Dockerfile
+    container_name: scraper
+    # ports:
+    #  - "5000:5000"
+    networks:
+      - scrapy_mysql_net
+    command: ["wait-for-it", "mysql:3306", "--timeout=10","--","scrapy", "crawl", "fvs"]
+
   db:
     image: mysql
     container_name: db
@@ -22,8 +34,8 @@ services:
       MYSQL_HOST: '%'
       MYSQL_USER: 'scraper'
     volumes:
-      - ./db_dir:/var/lib/mysql
-      - ./mysql-init.sql:/tmp/mysql-init.sql
+      - ./db/db_dir:/var/lib/mysql
+      - ./db/mysql-init.sql:/tmp/mysql-init.sql
     networks:
       - scrapy_mysql_net
     ports:

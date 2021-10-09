@@ -1,6 +1,0 @@
-CREATE DATABASE IF NOT EXISTS quotes;
-USE quotes;
-CREATE TABLE IF NOT EXISTS quotes (id int AUTO_INCREMENT PRIMARY KEY, quote varchar(255), author varchar(255));
-CREATE USER 'scraper'@'%' IDENTIFIED BY 'pass';
-GRANT ALL PRIVILEGES ON *.* TO 'scraper'@'%';
-FLUSH PRIVILEGES;
