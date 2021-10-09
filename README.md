@@ -2,6 +2,12 @@ This repo is for the purpose of demonstrating how to deploy a Scrapy web scraper
 
     docker-compose up --build -d
 
+It starts three dockers
+
+    1) db: the mysql backend
+    2) scraper: fetches recent prices fro FvS ONE fonds
+    3) flask: provides JSON data for Portfolio Performance
+
 Once MySQL is ready, you can execute the following line:
 
     docker run -it --network=fvscrape_scrapy_mysql_net mysql mysql -uroot -ppass -hdb
