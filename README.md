@@ -21,6 +21,14 @@ To start debug scrapy
 
     docker exec -it scrapy bash 
 
+To see all results stored in the data base
+
+    http://host.ip:5000/prices
+
+To see prices for ISIN LU2040452752
+
+    http://host.ip:5000/prices/LU2040452752
+
 Adding PATH
 
     $env:Path += ";C:\Users\r\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
