@@ -4,9 +4,9 @@ This repo is for the purpose of demonstrating how to deploy a Scrapy web scraper
 
 It starts three dockers
 
-    1) db: the mysql backend
-    2) scraper: fetches recent prices fro FvS ONE fonds
-    3) flask: provides JSON data for Portfolio Performance
+1) db: the mysql backend
+2) scraper: fetches recent prices fro FvS ONE fonds
+3) flask: provides JSON data for Portfolio Performance
 
 Once MySQL is ready, you can execute the following line:
 
