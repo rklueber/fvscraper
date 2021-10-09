@@ -7,6 +7,6 @@ RUN rm /scrapy/requirements.txt
 RUN apt update
 RUN apt install wait-for-it
 
-COPY scraper/ /scrapy
+COPY . /scrapy
 
 WORKDIR /scrapy

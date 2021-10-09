@@ -2,8 +2,7 @@ version: '3'
 
 services:
   flask:
-    build: 
-      dockerfile: flask/Dockerfile
+    build: ./flask
     container_name: flask
     ports:
       - "5000:5000"
@@ -12,8 +11,7 @@ services:
     command: ["python", "app.py"]
 
   scraper:
-    build: 
-      dockerfile: scraper/Dockerfile
+    build: ./scraper
     container_name: scraper
     # ports:
     #  - "5000:5000"
