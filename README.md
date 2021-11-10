@@ -32,3 +32,14 @@ To see prices for ISIN LU2040452752
 Adding PATH
 
     $env:Path += ";C:\Users\r\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
+
+
+http://10.0.10.150:5001/onvista/getHistoricPrices?isin={ISIN}&days=90
+$.prices[*].datum
+dd.MM.yyyy  
+$.prices[*].schluss 
+$.prices[*].tief    
+$.prices[*].hoch    
+$.prices[*].volumen
+
+ 

@@ -22,9 +22,9 @@ def prices():
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
 		cursor.execute("SELECT isin, datafrom, price, currency FROM prices")
 		pricesRows = cursor.fetchall()
-		respone = jsonify(pricesRows)
-		respone.status_code = 200
-		return respone
+		response = jsonify(pricesRows)
+		response.status_code = 200
+		return response
 	except Exception as e:
 		print(e)
 	finally:
@@ -39,9 +39,9 @@ def pricesIsin(isin):
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
 		cursor.execute("SELECT isin, datafrom, price, currency FROM prices WHERE isin=%s", isin)
 		pricesRows = cursor.fetchall()
-		respone = jsonify(pricesRows)
-		respone.status_code = 200
-		return respone
+		response = jsonify(pricesRows)
+		response.status_code = 200
+		return response
 	except Exception as e:
 		print(e)
 	finally:
@@ -54,9 +54,9 @@ def not_found(error=None):
         'status': 404,
         'message': 'Record not found: ' + request.url,
     }
-    respone = jsonify(message)
-    respone.status_code = 404
-    return respone
+    response = jsonify(message)
+    response.status_code = 404
+    return response
 		
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
