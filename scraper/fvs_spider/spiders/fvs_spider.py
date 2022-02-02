@@ -11,8 +11,8 @@ class FvSSpider(Spider):
         ]
 
     def parse(self, response):
-        fondsdata = response.css('div.tabs__content')[0].css('tr')
-        fondsprices = response.css('div.tabs__content')[1].css('tr')
+        fondsdata = response.css('div[data-id]')[0].css('tr')
+        fondsprices = response.css('div[data-id]')[1].css('tr')
         for i in range(1,len(fondsdata)):
             item = ItemLoader(FvSSpiderItem())
             item.add_value('isin',     fondsdata[i  ].xpath('td//text()')[1].get())
