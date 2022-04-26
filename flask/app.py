@@ -20,7 +20,7 @@ def prices():
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT isin, datafrom, price, currency FROM prices")
+		cursor.execute("SELECT isin, datafrom, price, currency FROM prices ORDER BY datafrom DESC LIMIT 10")
 		pricesRows = cursor.fetchall()
 		response = jsonify(pricesRows)
 		response.status_code = 200
@@ -37,7 +37,7 @@ def pricesIsin(isin):
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT isin, datafrom, price, currency FROM prices WHERE isin=%s", isin)
+		cursor.execute("SELECT isin, datafrom, price, currency FROM prices WHERE isin=%s ORDER BY datafrom DESC LIMIT 30", isin)
 		pricesRows = cursor.fetchall()
 		response = jsonify(pricesRows)
 		response.status_code = 200
