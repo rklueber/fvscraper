@@ -10,7 +10,7 @@ It starts three dockers
 
 Once MySQL is ready, you can execute the following line:
 
-    docker run -it --network=fvscrape_scrapy_mysql_net mysql mysql -uroot -ppass -hdb
+    docker run -it --network=fvscraper_scrapy_mysql_net mysql mysql -uroot -ppass -hdb
 
 And when you're in the MySQL interpreter, execute something like this:
 
@@ -20,6 +20,7 @@ And when you're in the MySQL interpreter, execute something like this:
 To start debug scrapy
 
     docker exec -it scrapy bash 
+    scrapy.exe shell https://lu.fvsinvest.lu/en/other/
 
 To see all results stored in the data base
 
