@@ -1,9 +1,7 @@
 import pymysql
-from flask import Flask
-from flask_cors import CORS, cross_origin
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 from flaskext.mysql import MySQL
-from flask import jsonify
-from flask import flash, request
 
 app = Flask(__name__)
 CORS(app)
@@ -17,37 +15,46 @@ mysql.init_app(app)
 
 @app.route('/prices')
 def prices():
-	try:
-		conn = mysql.connect()
-		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT isin, datafrom, price, currency FROM prices ORDER BY datafrom DESC LIMIT 10")
-		pricesRows = cursor.fetchall()
-		response = jsonify(pricesRows)
-		response.status_code = 200
-		return response
-	except Exception as e:
-		print(e)
-	finally:
-		cursor.close() 
-		conn.close()
-
+    conn = None
+    cursor = None
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT isin, datafrom, price, currency FROM prices ORDER BY datafrom DESC LIMIT 10")
+        pricesRows = cursor.fetchall()
+        response = jsonify(pricesRows)
+        response.status_code = 200
+        return response
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Unable to fetch data"}), 500
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 @app.route('/prices/<isin>')
 def pricesIsin(isin):
-	try:
-		conn = mysql.connect()
-		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT isin, datafrom, price, currency FROM prices WHERE isin=%s ORDER BY datafrom DESC LIMIT 30", isin)
-		pricesRows = cursor.fetchall()
-		response = jsonify(pricesRows)
-		response.status_code = 200
-		return response
-	except Exception as e:
-		print(e)
-	finally:
-		cursor.close() 
-		conn.close()
-		
+    conn = None
+    cursor = None
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT isin, datafrom, price, currency FROM prices WHERE isin=%s ORDER BY datafrom DESC LIMIT 30", (isin,))
+        pricesRows = cursor.fetchall()
+        response = jsonify(pricesRows)
+        response.status_code = 200
+        return response
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Unable to fetch data for ISIN"}), 500
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
@@ -57,6 +64,6 @@ def not_found(error=None):
     response = jsonify(message)
     response.status_code = 404
     return response
-		
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
