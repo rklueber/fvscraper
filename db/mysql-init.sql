@@ -1,6 +1,3 @@
--- Drop user if exists to avoid conflict during creation
-DROP USER IF EXISTS 'scraper'@'%';
-
 -- Create user with specific authentication method
 CREATE USER 'scraper'@'%' IDENTIFIED WITH caching_sha2_password BY 'pass';
 
