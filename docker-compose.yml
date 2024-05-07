@@ -22,7 +22,7 @@ services:
   db:
     image: mysql
     container_name: db
-    command: ["--init-file=/tmp/mysql-init.sql", "--default-authentication-plugin=mysql_native_password"]
+    command: ["--init-file=/tmp/mysql-init.sql"]
     restart: always
     environment:
       MYSQL_NATIVE_PASSWORD: 'pass'
